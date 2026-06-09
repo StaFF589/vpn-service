@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Service - Быстрый и надёжный VPN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #00d084;
+            color: #fff;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        .features {
+            padding: 80px 20px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.15);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .pricing {
+            padding: 80px 20px;
+        }
+        
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: rgba(255,255,255,0.15);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .pricing-card:hover {
+            border-color: #00d084;
+        }
+        
+        .pricing-card.popular {
+            border-color: #00d084;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #00d084;
+        }
+        
+        .price span {
+            font-size: 0.4em;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .pricing-card li:before {
+            content: "✓ ";
+            color: #00d084;
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.2);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1.1em;
+            }
+            .pricing-card.popular {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔒 VPN Service</h1>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h2>Быстрый и надёжный VPN</h2>
+            <p>Обходите блокировки, защищайте свои данные и сохраняйте анонимность<br>в интернете с нашим VPN-сервисом</p>
+            <a href="https://t.me/your_vpn_bot" class="cta-button">🚀 Подключиться сейчас</a>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2>Почему выбирают нас?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Высокая скорость</h3>
+                    <p>Быстрые серверы с неограниченной пропускной способностью. Смотрите видео и играйте без задержек.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Безопасность</h3>
+                    <p>Современное шифрование и защита данных. Мы не ведём логи вашей активности.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Все устройства</h3>
+                    <p>Работает на iPhone, Android, Windows, Mac и Linux. Простая настройка за 2 минуты.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Доступ везде</h3>
+                    <p>Обходите блокировки сайтов и приложений. Доступ к любому контенту из любой точки мира.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Наша команда всегда на связи в Telegram. Поможем с настройкой и ответим на вопросы.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💰</div>
+                    <h3>Доступные цены</h3>
+                    <p>Гибкие тарифы от 99₽/месяц. Скидки при оплате за несколько месяцев.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing">
+        <div class="container">
+            <h2>Тарифы</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>🟢 Базовый</h3>
+                    <div class="price">99₽<span>/месяц</span></div>
+                    <ul>
+                        <li>1 устройство</li>
+                        <li>100 GB трафика</li>
+                        <li>Базовая скорость</li>
+                        <li>Поддержка</li>
+                    </ul>
+                    <a href="https://t.me/your_vpn_bot" class="cta-button" style="padding: 12px 30px; font-size: 1em;">Выбрать</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <h3>⭐ Стандарт</h3>
+                    <div class="price">199₽<span>/месяц</span></div>
+                    <ul>
+                        <li>3 устройства</li>
+                        <li>Безлимитный трафик</li>
+                        <li>Высокая скорость</li>
+                        <li>Приоритетная поддержка</li>
+                        <li>Все протоколы</li>
+                    </ul>
+                    <a href="https://t.me/your_vpn_bot" class="cta-button" style="padding: 12px 30px; font-size: 1em;">Выбрать</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>🔥 Премиум</h3>
+                    <div class="price">399₽<span>/месяц</span></div>
+                    <ul>
+                        <li>5 устройств</li>
+                        <li>Безлимитный трафик</li>
+                        <li>Максимальная скорость</li>
+                        <li>VIP поддержка 24/7</li>
+                        <li>Все протоколы</li>
+                        <li>Выделенный IP</li>
+                    </ul>
+                    <a href="https://t.me/your_vpn_bot" class="cta-button" style="padding: 12px 30px; font-size: 1em;">Выбрать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 VPN Service. Все права защищены.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Сервис для законных целей. Мы уважаем вашу приватность.</p>
+        </div>
+    </footer>
+</body>
+</html>
