@@ -1,7 +1,7 @@
 # 🔒 vpnstaff — Быстрый и надёжный VPN сервис
 
 [![Telegram](https://img.shields.io/badge/Telegram-бот-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/vpnstaff_bot)
-[![Website](https://img.shields.io/badge/Сайт-vpnstaff.github.io-000000?style=for-the-badge&logo=github&logoColor=white)](https://vpnstaff.github.io)
+[![Website](https://img.shields.io/badge/Сайт-vpnstaff.github.io-000000?style=for-the-badge&logo=github&logoColor=white)](https://vpnstaff.github.io/vpn-service/)
 [![Uptime](https://img.shields.io/badge/uptime-99.9%-brightgreen?style=for-the-badge)](https://t.me/vpnstaff_bot)
 
 **Свободный интернет без границ. Подключение за 30 секунд.**
