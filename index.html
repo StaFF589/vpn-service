@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vpnstaff — Быстрый VPN без границ</title>
+    <meta name="description" content="vpnstaff — быстрый, безопасный и анонимный VPN. Обход блокировок, защита приватности. Подключение за 30 секунд.">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -27,14 +32,15 @@
         
         /* Header */
         header {
-            padding: 30px 0;
+            padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         nav {
@@ -53,10 +59,15 @@
             color: #888;
         }
         
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
         .nav-links a {
             color: #888;
             text-decoration: none;
-            margin-left: 40px;
             transition: color 0.3s;
             font-size: 0.95em;
         }
@@ -65,208 +76,349 @@
             color: #fff;
         }
         
+        .nav-cta {
+            background: #fff;
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-cta:hover {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
         /* Hero Section */
         .hero {
-            margin-top: 120px;
-            padding: 120px 0;
+            margin-top: 80px;
+            padding: 100px 0 80px;
             text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 100px;
+            font-size: 0.85em;
+            color: #aaa;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.03);
         }
         
         .hero h1 {
             font-size: 4.5em;
             font-weight: 700;
             letter-spacing: -2px;
-            margin-bottom: 20px;
-            line-height: 1.1;
+            margin-bottom: 24px;
+            line-height: 1.05;
+        }
+        
+        .hero h1 .accent {
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero p {
-            font-size: 1.4em;
+            font-size: 1.3em;
             color: #888;
             max-width: 600px;
-            margin: 0 auto 50px;
+            margin: 0 auto 40px;
             font-weight: 300;
         }
         
-        .cta-button {
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
             display: inline-block;
-            background: #fff;
-            color: #000;
-            padding: 18px 50px;
+            padding: 16px 40px;
             border-radius: 100px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1em;
             transition: all 0.3s;
-            border: 2px solid #fff;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
         
-        .cta-button:hover {
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+        
+        .btn-primary:hover {
             background: transparent;
             color: #fff;
             transform: translateY(-2px);
         }
         
-        .cta-button.outline {
+        .btn-outline {
             background: transparent;
             color: #fff;
-            margin-left: 20px;
+            border-color: rgba(255,255,255,0.3);
         }
         
-        .cta-button.outline:hover {
+        .btn-outline:hover {
             background: #fff;
             color: #000;
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 80px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .stat-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 4px;
         }
         
         /* Features */
         .features {
-            padding: 150px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 120px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            color: #888;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
         }
         
         .section-title {
-            font-size: 2.5em;
+            font-size: 2.8em;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 80px;
-            letter-spacing: -1px;
+            letter-spacing: -1.5px;
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            color: #888;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
+            gap: 40px;
         }
         
         .feature {
-            text-align: center;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .feature:hover {
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.04);
         }
         
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
-            transition: all 0.3s;
-        }
-        
-        .feature:hover .feature-icon {
-            border-color: #fff;
-            transform: scale(1.1);
+            font-size: 1.5em;
+            background: rgba(255,255,255,0.03);
         }
         
         .feature h3 {
-            font-size: 1.3em;
-            margin-bottom: 15px;
+            font-size: 1.2em;
+            margin-bottom: 12px;
             font-weight: 600;
         }
         
         .feature p {
             color: #888;
             font-size: 0.95em;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         /* Pricing */
         .pricing {
-            padding: 150px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 120px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 24px;
             max-width: 1100px;
             margin: 0 auto;
         }
         
         .pricing-card {
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 50px 40px;
-            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 40px 32px;
+            border-radius: 24px;
             transition: all 0.3s;
             position: relative;
+            background: rgba(255,255,255,0.02);
+            display: flex;
+            flex-direction: column;
         }
         
         .pricing-card:hover {
-            border-color: #fff;
-            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-4px);
         }
         
         .pricing-card.featured {
             border-color: #fff;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.05);
         }
         
-        .pricing-card.featured::before {
-            content: "POPULAR";
+        .pricing-badge {
             position: absolute;
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
             background: #fff;
             color: #000;
-            padding: 5px 20px;
-            font-size: 0.75em;
+            padding: 6px 18px;
+            font-size: 0.7em;
             font-weight: 700;
-            border-radius: 20px;
+            border-radius: 100px;
+            letter-spacing: 1px;
         }
         
         .pricing-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            font-size: 1.3em;
+            margin-bottom: 8px;
             font-weight: 600;
         }
         
+        .pricing-desc {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 24px;
+        }
+        
         .price {
-            font-size: 3.5em;
+            font-size: 3.2em;
             font-weight: 700;
-            margin: 30px 0;
+            margin-bottom: 8px;
             letter-spacing: -2px;
+            line-height: 1;
         }
         
         .price span {
             font-size: 0.3em;
             color: #888;
             font-weight: 400;
+            letter-spacing: 0;
+        }
+        
+        .price-note {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 32px;
         }
         
         .pricing-card ul {
             list-style: none;
-            margin: 40px 0;
+            margin-bottom: 32px;
+            flex-grow: 1;
         }
         
         .pricing-card li {
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 0;
             color: #aaa;
             font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .pricing-card li:first-child {
+        .pricing-card li::before {
+            content: "✓";
             color: #fff;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 0.9em;
         }
         
         .select-plan {
             display: block;
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255,255,255,0.3);
             color: #fff;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
             text-align: center;
             font-weight: 600;
             transition: all 0.3s;
             cursor: pointer;
+            font-size: 0.95em;
         }
         
         .select-plan:hover {
@@ -278,6 +430,7 @@
         .pricing-card.featured .select-plan {
             background: #fff;
             color: #000;
+            border-color: #fff;
         }
         
         .pricing-card.featured .select-plan:hover {
@@ -287,28 +440,35 @@
         
         /* How it works */
         .how-it-works {
-            padding: 150px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 120px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .step {
             text-align: center;
+            padding: 32px 20px;
         }
         
         .step-number {
-            font-size: 4em;
+            font-size: 3.5em;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.1);
             margin-bottom: 20px;
             line-height: 1;
+            letter-spacing: -2px;
         }
         
         .step h3 {
-            font-size: 1.3em;
-            margin-bottom: 15px;
+            font-size: 1.2em;
+            margin-bottom: 12px;
             font-weight: 600;
         }
         
@@ -317,24 +477,309 @@
             font-size: 0.95em;
         }
         
-        /* Footer */
-        footer {
-            padding: 60px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: #666;
-            font-size: 0.9em;
+        /* FAQ */
+        .faq {
+            padding: 120px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        footer a {
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 24px 0;
+            cursor: pointer;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        
+        .faq-toggle {
+            color: #888;
+            font-size: 1.5em;
+            transition: transform 0.3s;
+            font-weight: 300;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #888;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 16px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+        }
+        
+        .cta-section h2 {
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            color: #888;
+            font-size: 1.15em;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-logo {
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .footer-logo span {
+            color: #888;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-links a {
             color: #888;
             text-decoration: none;
-            margin: 0 15px;
+            font-size: 0.9em;
             transition: color 0.3s;
         }
         
-        footer a:hover {
+        .footer-links a:hover {
             color: #fff;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #555;
+            font-size: 0.85em;
+        }
+        
+        /* Payment Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 28px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .modal h2 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .modal-subtitle {
+            color: #888;
+            margin-bottom: 28px;
+            font-size: 0.95em;
+        }
+        
+        .modal-tariff {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-tariff-name {
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        
+        .modal-tariff-desc {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+        
+        .modal-amount {
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .modal-form {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            color: #888;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #fff;
+        }
+        
+        .form-hint {
+            color: #666;
+            font-size: 0.8em;
+            margin-top: 8px;
+        }
+        
+        .modal-submit {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .modal-submit:hover {
+            background: #e0e0e0;
+            transform: translateY(-1px);
+        }
+        
+        .modal-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .modal-footer-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #888;
+            font-size: 0.85em;
+        }
+        
+        .modal-footer-item span {
+            font-size: 1em;
         }
         
         /* Mobile */
@@ -343,24 +788,80 @@
                 padding: 0 20px;
             }
             
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0,0,0,0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero {
+                padding: 80px 0 60px;
+            }
+            
             .hero h1 {
-                font-size: 3em;
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+                margin-top: 50px;
+            }
+            
+            .stat-value {
+                font-size: 2em;
             }
             
             .features-grid,
             .pricing-grid,
             .steps {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 20px;
             }
             
-            .nav-links {
-                display: none;
+            .section-title {
+                font-size: 2em;
             }
             
-            .cta-button.outline {
-                margin-left: 0;
-                margin-top: 15px;
+            .cta-section h2 {
+                font-size: 2em;
+            }
+            
+            .modal {
+                padding: 28px 24px;
+            }
+            
+            .modal h2 {
+                font-size: 1.5em;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
@@ -371,11 +872,14 @@
         <div class="container">
             <nav>
                 <div class="logo">vpn<span>staff</span></div>
-                <div class="nav-links">
+                <div class="nav-links" id="navLinks">
                     <a href="#features">Возможности</a>
                     <a href="#pricing">Тарифы</a>
                     <a href="#how-it-works">Как работает</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="https://t.me/vpnstaff_bot" class="nav-cta">Подключиться</a>
                 </div>
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             </nav>
         </div>
     </header>
@@ -383,47 +887,69 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Свободный интернет<br>без границ</h1>
-            <p>Быстрый, безопасный и анонимный VPN. Подключение за 30 секунд.</p>
-            <a href="https://t.me/vpnstaff_bot" class="cta-button">Начать использовать</a>
-            <a href="#pricing" class="cta-button outline">Выбрать тариф</a>
+            <div class="hero-badge">⚡ Подключение за 30 секунд</div>
+            <h1>Свободный интернет<br><span class="accent">без границ</span></h1>
+            <p>Быстрый, безопасный и анонимный VPN. Обходите блокировки и защищайте свои данные.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary">Выбрать тариф</a>
+                <a href="#how-it-works" class="btn btn-outline">Как это работает</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">Аптайм серверов</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1 Gbps</div>
+                    <div class="stat-label">Скорость канала</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Поддержка</div>
+                </div>
+            </div>
         </div>
     </section>
     
     <!-- Features -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">Почему vpnstaff?</h2>
+            <div class="section-header">
+                <div class="section-tag">Возможности</div>
+                <h2 class="section-title">Почему vpnstaff?</h2>
+                <p class="section-subtitle">Всё, что нужно для безопасного и быстрого интернета</p>
+            </div>
             <div class="features-grid">
                 <div class="feature">
                     <div class="feature-icon">⚡</div>
                     <h3>Молниеносная скорость</h3>
-                    <p>Оптимизированные серверы обеспечивают максимальную скорость без ограничений</p>
+                    <p>Оптимизированные серверы с каналом 1 Gbps. Смотрите видео в 4K и играйте без задержек.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🔒</div>
                     <h3>Полная приватность</h3>
-                    <p>Никаких логов. Ваши данные зашифрованы и защищены современными протоколами</p>
+                    <p>Никаких логов. Ваши данные зашифрованы современными протоколами VLESS и Reality.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📱</div>
                     <h3>Любое устройство</h3>
-                    <p>iOS, Android, Windows, macOS — работает везде. Простая настройка</p>
+                    <p>iOS, Android, Windows, macOS, Linux — работает везде. Простая настройка за 2 минуты.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🌐</div>
                     <h3>Доступ ко всему</h3>
-                    <p>Обходите блокировки и получайте доступ к любому контенту из любой точки</p>
+                    <p>Обходите любые блокировки. Instagram, YouTube, Telegram — всё работает.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">💬</div>
                     <h3>Поддержка 24/7</h3>
-                    <p>Всегда на связи в Telegram. Поможем с настройкой за несколько минут</p>
+                    <p>Всегда на связи в Telegram. Поможем с настройкой за несколько минут.</p>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Просто и удобно</h3>
-                    <p>Никаких сложных настроек. Подключился и забыл о проблемах</p>
+                    <div class="feature-icon">🛡</div>
+                    <h3>Защита от блокировок</h3>
+                    <p>Протокол Reality невозможно обнаружить. Ваш IP в безопасности.</p>
                 </div>
             </div>
         </div>
@@ -432,23 +958,32 @@
     <!-- Pricing -->
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2 class="section-title">Простые тарифы</h2>
+            <div class="section-header">
+                <div class="section-tag">Тарифы</div>
+                <h2 class="section-title">Простые и честные цены</h2>
+                <p class="section-subtitle">Выберите подходящий тариф. Оплата картой или через СБП.</p>
+            </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Старт</h3>
+                    <p class="pricing-desc">Для личного использования</p>
                     <div class="price">99₽<span>/месяц</span></div>
+                    <p class="price-note">Оплата через ЮMoney</p>
                     <ul>
                         <li>1 устройство</li>
                         <li>100 GB трафика</li>
                         <li>Стандартная скорость</li>
-                        <li>Поддержка</li>
+                        <li>Поддержка в Telegram</li>
                     </ul>
-                    <a href="https://t.me/vpnstaff_bot" class="select-plan">Выбрать</a>
+                    <button class="select-plan" onclick="openPayment('Старт', 99, '1 устройство · 100 GB')">Выбрать тариф</button>
                 </div>
                 
                 <div class="pricing-card featured">
+                    <div class="pricing-badge">ПОПУЛЯРНЫЙ</div>
                     <h3>Про</h3>
+                    <p class="pricing-desc">Оптимальный выбор</p>
                     <div class="price">199₽<span>/месяц</span></div>
+                    <p class="price-note">Оплата через ЮMoney</p>
                     <ul>
                         <li>3 устройства</li>
                         <li>Безлимитный трафик</li>
@@ -456,12 +991,14 @@
                         <li>Приоритетная поддержка</li>
                         <li>Все протоколы</li>
                     </ul>
-                    <a href="https://t.me/vpnstaff_bot" class="select-plan">Выбрать</a>
+                    <button class="select-plan" onclick="openPayment('Про', 199, '3 устройства · Безлимит')">Выбрать тариф</button>
                 </div>
                 
                 <div class="pricing-card">
                     <h3>Максимум</h3>
+                    <p class="pricing-desc">Для семьи или команды</p>
                     <div class="price">399₽<span>/месяц</span></div>
+                    <p class="price-note">Оплата через ЮMoney</p>
                     <ul>
                         <li>5 устройств</li>
                         <li>Безлимитный трафик</li>
@@ -470,7 +1007,7 @@
                         <li>Все протоколы</li>
                         <li>Выделенный IP</li>
                     </ul>
-                    <a href="https://t.me/vpnstaff_bot" class="select-plan">Выбрать</a>
+                    <button class="select-plan" onclick="openPayment('Максимум', 399, '5 устройств · Безлимит · VIP')">Выбрать тариф</button>
                 </div>
             </div>
         </div>
@@ -479,17 +1016,21 @@
     <!-- How it works -->
     <section class="how-it-works" id="how-it-works">
         <div class="container">
-            <h2 class="section-title">Как это работает</h2>
+            <div class="section-header">
+                <div class="section-tag">Процесс</div>
+                <h2 class="section-title">Как это работает</h2>
+                <p class="section-subtitle">Три простых шага до свободного интернета</p>
+            </div>
             <div class="steps">
                 <div class="step">
                     <div class="step-number">01</div>
-                    <h3>Подпишитесь</h3>
-                    <p>Перейдите в наш Telegram-бот и выберите подходящий тариф</p>
+                    <h3>Выберите тариф</h3>
+                    <p>Определитесь с тарифом и оплатите подписку картой или через СБП</p>
                 </div>
                 <div class="step">
                     <div class="step-number">02</div>
-                    <h3>Оплатите</h3>
-                    <p>Быстрая оплата картой или криптовалютой. Ключ придёт мгновенно</p>
+                    <h3>Получите ключ</h3>
+                    <p>После оплаты напишите нам в Telegram — ключ придёт в течение 15 минут</p>
                 </div>
                 <div class="step">
                     <div class="step-number">03</div>
@@ -500,34 +1041,225 @@
         </div>
     </section>
     
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Вопросы</div>
+                <h2 class="section-title">Частые вопросы</h2>
+                <p class="section-subtitle">Ответы на самые популярные вопросы</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Как быстро я получу ключ после оплаты?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Обычно в течение 5-15 минут после оплаты. Напишите нам в Telegram с подтверждением оплаты, и мы сразу отправим вам ключ.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Какие способы оплаты вы принимаете?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Мы принимаем оплату банковскими картами (Visa, Mastercard, МИР), через СБП, а также через ЮMoney. Все платежи безопасны и проходят через защищённый шлюз.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>На каких устройствах работает VPN?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        VPN работает на всех популярных платформах: iOS (iPhone, iPad), Android, Windows, macOS, Linux. Мы предоставим подробную инструкцию для вашего устройства.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Ведёте ли вы логи моей активности?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Нет, мы не ведём логи вашей активности, не отслеживаем посещённые сайты и не собираем персональные данные. Ваша приватность — наш приоритет.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Что делать, если VPN не работает?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Напишите нам в Telegram — мы оперативно поможем решить проблему. В 99% случаев вопрос решается за 5 минут. Поддержка работает 24/7.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Можно ли вернуть деньги?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Да, если VPN не заработает по нашей вине, мы вернём деньги в полном объёме. Свяжитесь с нами в течение 24 часов после оплаты.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Готовы начать?</h2>
+            <p>Подключайтесь к vpnstaff сегодня и получите свободный интернет уже через 30 секунд</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary">Выбрать тариф</a>
+                <a href="https://t.me/vpnstaff_bot" class="btn btn-outline">Написать в Telegram</a>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 vpnstaff. Все права защищены.</p>
-            <p style="margin-top: 20px;">
-                <a href="https://t.me/vpnstaff_bot">Telegram-бот</a>
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">Условия использования</a>
-            </p>
-            <p style="margin-top: 20px; font-size: 0.85em; color: #555;">
-                Сервис предоставляется для законных целей. Мы не ведём логи вашей активности.
-            </p>
+            <div class="footer-content">
+                <div class="footer-logo">vpn<span>staff</span></div>
+                <div class="footer-links">
+                    <a href="#features">Возможности</a>
+                    <a href="#pricing">Тарифы</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="https://t.me/vpnstaff_bot">Telegram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 vpnstaff. Все права защищены.</p>
+                <p style="margin-top: 8px;">Сервис предоставляется для законных целей. Мы уважаем вашу приватность.</p>
+            </div>
         </div>
     </footer>
     
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            
+            <h2>💳 Оплата подписки</h2>
+            <p class="modal-subtitle">Безопасная оплата через ЮMoney</p>
+            
+            <div class="modal-tariff">
+                <div>
+                    <div class="modal-tariff-name" id="modalTariffName">Тариф Про</div>
+                    <div class="modal-tariff-desc" id="modalTariffDesc">3 устройства · Безлимит</div>
+                </div>
+                <div class="modal-amount" id="modalAmount">199₽</div>
+            </div>
+            
+            <form class="modal-form" id="paymentForm" action="https://yoomoney.ru/quickpay/confirm.xml" method="POST" target="_blank">
+                <input type="hidden" name="receiver" value="4100119550313608">
+                <input type="hidden" name="quickpay-form" value="shop">
+                <input type="hidden" name="paymentType" value="AC">
+                <input type="hidden" name="sum" id="paymentSum" value="">
+                <input type="hidden" name="targets" id="paymentTargets" value="">
+                <input type="hidden" name="label" id="paymentLabel" value="">
+                <input type="hidden" name="successURL" value="https://t.me/vpnstaff_bot">
+                
+                <div style="margin-bottom: 16px;">
+                    <label class="form-label">Ваш Telegram username *</label>
+                    <input type="text" name="comment" id="telegramUsername" class="form-input" 
+                           placeholder="@ваш_username" required>
+                    <p class="form-hint">⚠️ Укажите ваш @username — по нему мы найдём платёж</p>
+                </div>
+                
+                <button type="submit" class="modal-submit">Перейти к оплате →</button>
+            </form>
+            
+            <div class="modal-footer">
+                <div class="modal-footer-item">
+                    <span>🔒</span> Безопасная оплата через ЮMoney
+                </div>
+                <div class="modal-footer-item">
+                    <span>💳</span> Карты РФ, СБП, Apple Pay, Google Pay
+                </div>
+                <div class="modal-footer-item">
+                    <span>⚡</span> Ключ в течение 15 минут после оплаты
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        // Smooth scroll
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+        
+        // FAQ toggle
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+        }
+        
+        // Payment Modal
+        function openPayment(tariff, amount, description) {
+            document.getElementById('modalTariffName').textContent = 'Тариф ' + tariff;
+            document.getElementById('modalTariffDesc').textContent = description;
+            document.getElementById('modalAmount').textContent = amount + '₽';
+            document.getElementById('paymentSum').value = amount;
+            document.getElementById('paymentTargets').value = 'vpnstaff: Тариф ' + tariff + ' (' + amount + '₽)';
+            document.getElementById('paymentLabel').value = tariff + '_' + amount + '_' + Date.now();
+            
+            document.getElementById('paymentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on overlay click
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+        
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+            anchor.addEventListener('click', function(e) {
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
+                    e.preventDefault();
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
                 }
             });
+        });
+        
+        // Auto-fill Telegram username if available
+        const savedUsername = localStorage.getItem('tg_username');
+        if (savedUsername) {
+            document.getElementById('telegramUsername').value = savedUsername;
+        }
+        
+        // Save username on form submit
+        document.getElementById('paymentForm').addEventListener('submit', function() {
+            const username = document.getElementById('telegramUsername').value;
+            if (username) {
+                localStorage.setItem('tg_username', username);
+            }
         });
     </script>
 </body>
